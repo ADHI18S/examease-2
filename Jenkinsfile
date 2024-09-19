@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        git 'adhi' // Specify the Git version to use
+        git 'Default' // Specify the Git version to use
     }
 
     stages {
