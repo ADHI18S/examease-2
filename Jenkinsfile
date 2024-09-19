@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    tools {
+        git 'Latest' // Specify the Git version to use
+    }
 
     stages {
         stage('Clone Repository') {
