@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Joseph's Notes and Papers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #88aedd;
+            color: #f0f0f0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #47616d;
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 40%;
+            height: 50px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #fff;
+            font-size: 24px;
+        }
+        .selection {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #444;
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #31403b;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button:disabled {
+            background-color: #43836b;
+            cursor: not-allowed;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #526a76;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+            button {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <header>
+            <img src="your-image-source.jpg" alt="St. Joseph's Institutions">
+            <h1>Welcome to St. Joseph's Notes and Papers</h1>
+        </header>
+        <main id="main-content">
+            <div class="info">
+                <p>Welcome to the St. Joseph's Institutions resource hub. Select your semester and department to download study materials and model question papers.</p>
+            </div>
+            <div class="selection">
+                <label for="semester">Choose Semester:</label>
+                <select id="semester">
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="1">1st Semester</option>
+                    <option value="2">2nd Semester</option>
+                    <option value="3">3rd Semester</option>
+                    <option value="4">4th Semester</option>
+                    <option value="5">5th Semester</option>
+                    <option value="6">6th Semester</option>
+                    <option value="7">7th Semester</option>
+                    <option value="8">8th Semester</option>
+                </select>
+            </div>
+            <div class="selection">
+                <label for="department">Choose Department:</label>
+                <select id="department" disabled>
+                    semesterSelect.addEventListener('change', function() {
+                        const semester = this.value;
+                        departmentSelect.innerHTML = '<option value="" disabled selected>Select Department</option>';
+                        subjectSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+                        submitButton.disabled = true;
+                        departmentContent.style.display = 'none';
+                        mainContent.style.display = 'block';
+                    
+                        if (semester) {
+                            const deptOptions = departments[semester];
+                            deptOptions.forEach(dept => {
+                                const option = document.createElement('option');
+                                option.value = dept;
+                                option.textContent = dept;
+                                departmentSelect.appendChild(option);
+                            });
+                            departmentSelect.disabled = false;
+                        } else {
+                            departmentSelect.disabled = true;
+                        }
+                    });
+                    
+                    <!-- Departments will be populated based on semester -->
+                </select>
+            </div>
+            <button id="submit-btn" disabled>Proceed</button>
+        </main>
+        <main id="department-content" style="display: none;">
+            <div class="info">
+                <p>Choose a subject to download notes for the selected department.</p>
+            </div>
+            <div class="selection">
+                <label for="subject">Choose Subject:</label>
+                <select id="subject" disabled>
+                    <option value="" disabled selected>Select Subject</option>
+                    <!-- Subjects will be populated here -->
+                </select>
+            </div>
+            <button id="download-btn" disabled>Download Notes</button>
+        </main>
+        <footer>
+            <p>&copy; 2024 St. Joseph's Institutions</p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainContainer = document.getElementById('main-container');
+            const mainContent = document.getElementById('main-content');
+            const departmentContent = document.getElementById('department-content');
+            const semesterSelect = document.getElementById('semester');
+            const departmentSelect = document.getElementById('department');
+            const subjectSelect = document.getElementById('subject');
+            const submitButton = document.getElementById('submit-btn');
+            const downloadButton = document.getElementById('download-btn');
+
+            const departments = {
+                1: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                2: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                3: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                4: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                5: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                6: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                7: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS'],
+                8: ['CSE', 'ECE', 'IT', 'EEE', 'MECH', 'ADS']
+            };
+
+            const subjects = {
+                1: {
+                    'CSE': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - Communicative English'],
+                    'ECE': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - Communicative English'],
+                    'IT': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - Communicative English'],
+                    'EEE': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - Communicative English'],
+                    'MECH': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - CommunicativeEnglish'],
+                    'ADS': ['GE4105 - Problem Solving and Python Programming', 'MA4102 - Engineering Mathematics', 'PH4103 - Engineering Physics I','CY4104 - Engineering Chemistry','GE4106 -Engineering Graphics','HS4101 - Communicative English']
+                },
+                2: {
+                    'CSE': ['Data Structures', 'Mathematics II', 'Physics II'],
+                    'ECE': ['Signals and Systems', 'Mathematics II', 'Physics II'],
+                    'IT': ['BE4251 - Basic Electrical and Electronics Engineering', 'CS4206 - Programming in C', 'GE4204 - Environmental Science and Engineering','GE4251 - Tamils and Technology','HS4201 - Professional English','MA4202 - Statistics & Numerical Methods	','PH4251 - Physics for Information Science'],
+                    'EEE': ['Circuits and Networks', 'Mathematics II', 'Physics II'],
+                    'MECH': ['Thermodynamics', 'Mathematics II', 'Physics II'],
+                    'ADS': ['Advanced Data Structures', 'Mathematics II', 'Physics II']
+                },
+                3: {
+                    'CSE': ['Data Structures', 'Mathematics II', 'Physics II'],
+                    'ECE': ['Signals and Systems', 'Mathematics II', 'Physics II'],
+                    'IT': ['Database Systems', 'Mathematics II', 'Physics II'],
+                    'EEE': ['Circuits and Networks', 'Mathematics II', 'Physics II'],
+                    'MECH': ['Thermodynamics', 'Mathematics II', 'Physics II'],
+                    'ADS': ['Advanced Data Structures', 'Mathematics II', 'Physics II']
+                },
+                4: {
+                    'CSE': ['Data Structures', 'Mathematics II', 'Physics II'],
+                    'ECE': ['Signals and Systems', 'Mathematics II', 'Physics II'],
+                    'IT': ['Database Systems', 'Mathematics II', 'Physics II'],
+                    'EEE': ['Circuits and Networks', 'Mathematics II', 'Physics II'],
+                    'MECH': ['Thermodynamics', 'Mathematics II', 'Physics II'],
+                    'ADS': ['Advanced Data Structures', 'Mathematics II', 'Physics II']
+                },
+                5: {
+                    'CSE': ['Computer Networks', 'Mathematics III', 'Digital Logic Design'],
+                    'ECE': ['Communication Systems', 'Mathematics III', 'Digital Logic Design'],
+                    'IT': ['Operating Systems', 'Mathematics III', 'Digital Logic Design'],
+                    'EEE': ['Electrical Machines', 'Mathematics III', 'Digital Logic Design'],
+                    'MECH': ['Heat Transfer', 'Mathematics III', 'Digital Logic Design'],
+                    'ADS': ['Data Analytics', 'Mathematics III', 'Digital Logic Design']
+                },
+                6: {
+                    'CSE': ['Operating Systems', 'Computer Networks', 'Database Systems'],
+                    'ECE': ['Analog Circuits', 'Communication Systems', 'Signals and Systems'],
+                    'IT': ['Software Engineering', 'Computer Networks', 'Database Systems'],
+                    'EEE': ['Control Systems', 'Power Electronics', 'Electrical Machines'],
+                    'MECH': ['Manufacturing Processes', 'Thermodynamics', 'Fluid Mechanics'],
+                    'ADS': ['Advanced Data Analytics', 'Machine Learning', 'Statistical Methods']
+                },
+                7: {
+                    'CSE': ['Machine Learning', 'Database Systems', 'Software Engineering'],
+                    'ECE': ['Digital Signal Processing', 'Communication Systems', 'VLSI Design'],
+                    'IT': ['Software Engineering', 'Cloud Computing', 'Cyber Security'],
+                    'EEE': ['Power Systems', 'Electrical Machines', 'Control Systems'],
+                    'MECH': ['Refrigeration and Air Conditioning', 'Machine Design', 'Heat Transfer'],
+                    'ADS': ['Big Data Analytics', 'Data Mining', 'Predictive Analytics']
+                },
+                8: {
+                    'CSE': ['Artificial Intelligence', 'Project Management', 'Network Security'],
+                    'ECE': ['Embedded Systems', 'Wireless Communication', 'Signal Processing'],
+                    'IT': ['Data Science', 'Internet of Things', 'Advanced Networking'],
+                    'EEE': ['Power Electronics', 'Power Systems', 'Renewable Energy'],
+                    'MECH': ['Advanced Manufacturing', 'Robotics', 'Thermal Engineering'],
+                    'ADS': ['Deep Learning', 'Data Visualization', 'Advanced Predictive Analytics']
+                }
+            };
+
+            const units = {
+                'GE4105 - Problem Solving and Python Programming': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4'],
+                'MA4102 - Engineering Mathematics': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4', 'Unit 5'],
+                'PH4103 - Engineering Physics I': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4'],
+                'CY4104 - Engineering Chemistry': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4'],
+                'GE4106 - Engineering Graphics': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4'],
+                'HS4101 - Communicative English': ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4'],
+                // Add units for other subjects as needed
+            };
+
+            const notesUrls = {
+                'GE4105 - Problem Solving and Python Programming': {
+                    'Unit 1': 'https://example.com/unit1.pdf',
+                    'Unit 2': 'https://example.com/unit2.pdf',
+                    'Unit 3': 'https://example.com/unit3.pdf',
+                    'Unit 4': 'https://example.com/unit4.pdf'
+                },
+                'MA4102 - Engineering Mathematics': {
+                    'Unit 1': 'https://example.com/math1.pdf',
+                    'Unit 2': 'https://example.com/math2.pdf',
+                    'Unit 3': 'https://example.com/math3.pdf',
+                    'Unit 4': 'https://example.com/math4.pdf',
+                    'Unit 5': 'https://example.com/math5.pdf'
+                },
+                // Add URLs for other units and subjects as needed
+            };
+
+            semesterSelect.addEventListener('change', function() {
+                const semester = this.value;
+                departmentSelect.innerHTML = '<option value="" disabled selected>Select Department</option>';
+                subjectSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+                unitSelect.innerHTML = '<option value="" disabled selected>Select Unit</option>';
+                submitButton.disabled = true;
+                departmentContent.style.display = 'none';
+                mainContent.style.display = 'block';
+
+                if (semester) {
+                    const deptOptions = departments[semester];
+                    deptOptions.forEach(dept => {
+                        const option = document.createElement('option');
+                        option.value = dept;
+                        option.textContent = dept;
+                        departmentSelect.appendChild(option);
+                    });
+                    departmentSelect.disabled = false;
+                } else {
+                    departmentSelect.disabled = true;
+                }
+            });
+
+            departmentSelect.addEventListener('change', function() {
+                submitButton.disabled = !this.value;
+            });
+
+            submitButton.addEventListener('click', function() {
+                const semester = semesterSelect.value;
+                const department = departmentSelect.value;
+
+                if (semester && department) {
+                    mainContent.style.display = 'none';
+                    departmentContent.style.display = 'block';
+
+                    const subjOptions = subjects[semester][department];
+                    subjectSelect.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+                    subjOptions.forEach(subj => {
+                        const option = document.createElement('option');
+                        option.value = subj;
+                        option.textContent = subj;
+                        subjectSelect.appendChild(option);
+                    });
+                    subjectSelect.disabled = false;
+                }
+            });
+
+            subjectSelect.addEventListener('change', function() {
+                const subject = this.value;
+                unitSelect.innerHTML = '<option value="" disabled selected>Select Unit</option>';
+                unitSelect.disabled = !subject;
+
+                if (subject) {
+                    const unitOptions = units[subject];
+                    unitOptions.forEach(unit => {
+                        const option = document.createElement('option');
+                        option.value = unit;
+                        option.textContent = unit;
+                        unitSelect.appendChild(option);
+                    });
+                }
+                downloadButton.disabled = true;
+            });
+
+            unitSelect.addEventListener('change', function() {
+                downloadButton.disabled = !this.value;
+            });
+
+            downloadButton.addEventListener('click', function() {
+                const subject = subjectSelect.value;
+                const unit = unitSelect.value;
+
+                if (subject && unit) {
+                    const url = notesUrls[subject]?.[unit];
+                    if (url) {
+                        window.location.href = url; // Redirect to the S3 URL
+                    } else {
+                        alert('No notes available for the selected unit.');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
