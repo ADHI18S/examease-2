@@ -1,36 +1,47 @@
 pipeline {
     agent any
+
     stages {
         stage('Clone Repository') {
             steps {
-                // Pull the code from GitHub
+                // Clone the public GitHub repository
                 git 'https://github.com/ADHI18S/examease-2.git'
             }
         }
-        
-        stage('Docker Build') {
+
+        stage('Build Docker Image') {
             steps {
-                // Build Docker image
-                sh 'docker build -t adhi .'
+                script {
+                    // Build the Docker image using the Dockerfile
+                    sh 'docker build -t frontend-app .'
+                }
             }
         }
-        
-        stage('Docker Run') {
+
+        stage('Deploy Docker Image') {
             steps {
-                // Run Docker container
-                 sh '''
-                # Stop the existing container if it's running
-                docker stop adhi || true
+                script {
+                    // SSH into the EC2 instance and deploy the Docker container
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ubuntu@your-ec2-public-ip << EOF
+                        # Stop and remove existing container if it exists
+                        docker stop frontend-app || true
+                        docker rm frontend-app || true
 
-                # Remove the old container if it exists
-                docker rm adhi || true
-
-                # Run a new container with the built image
-                docker run -d -p 80:80 --name adhi adhi
-                '''
+                        # Run the new container
+                        docker run -d -p 80:80 --name frontend-app frontend-app
+                    EOF
+                    '''
+                }
             }
         }
     }
-    
 
+    post {
+        always {
+            // Clean up the workspace after the build
+            cleanWs()
+        }
+    }
 }
+
