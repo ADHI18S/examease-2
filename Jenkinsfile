@@ -4,7 +4,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Pull the code from GitHub
-                git 'https://github.com/ADHI18S/examease.git'
+                git 'https://github.com/ADHI18S/examease-2.git'
             }
         }
         
